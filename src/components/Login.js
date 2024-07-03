@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import '../styles.css';
@@ -15,8 +15,8 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', { email, password });
-            const { token } = response.data;
-            login(token);
+            const { token, name } = response.data;
+            login(token, name);
             navigate('/dashboard');
         } catch (err) {
             setError('Credenciais inválidas. Tente novamente.');
@@ -45,6 +45,9 @@ const Login = () => {
                     />
                 </div>
                 <button type="submit">Entrar</button>
+                <div className="register-link">
+                    <Link to="/register">Criar novo cadastro</Link>
+                </div>
             </form>
         </div>
     );

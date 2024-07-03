@@ -8,13 +8,14 @@ import { useNavigate } from 'react-router-dom';
 function Dashboard() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-    const { logout } = useAuth();
+    const { logout, userName } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = () => {
         logout();
         navigate('/login');
     };
+
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -29,7 +30,7 @@ function Dashboard() {
                 <h1>Visão Geral</h1>
                 <div className="user-info">
                     <FaUserCircle size={24} />
-                    <span>João Batista</span>
+                    <span>{userName}</span>
                     <div className="user-menu">
                         <Link to="/profile">Alterar Dados</Link>
                         <button  onClick={handleLogout}>Sair</button>

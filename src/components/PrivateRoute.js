@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 
 const PrivateRoute = ({ component: Component }) => {
     const { isAuthenticated } = useAuth();
+
     return isAuthenticated ? <Component /> : <Navigate to="/login" />;
 };
 
