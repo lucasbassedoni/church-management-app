@@ -1,24 +1,36 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaHome, FaUsers, FaDollarSign, FaCalendarAlt, FaLayerGroup, FaComment, FaBars, FaUserCircle } from 'react-icons/fa';
 import '../styles.css';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import Overview from './Overview';
+import ChangePasswordForm from './ChangePasswordForm';
 
 function Dashboard() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
+    const [view, setView] = useState('overview');
     const { logout, userName } = useAuth();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = 'Church Management - Dashboard';
+    }, []);
 
     const handleLogout = () => {
         logout();
         navigate('/login');
     };
 
-
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const handleChangePassword = () => {
+        setView('changePassword');
+    };
+
+    const handleBackToOverview = () => {
+        setView('overview');
     };
 
     return (
@@ -32,8 +44,8 @@ function Dashboard() {
                     <FaUserCircle size={24} />
                     <span>{userName}</span>
                     <div className="user-menu">
-                        <Link to="/profile">Alterar Dados</Link>
-                        <button  onClick={handleLogout}>Sair</button>
+                        <button onClick={handleChangePassword}>Alterar Senha</button>
+                        <button onClick={handleLogout}>Sair</button>
                     </div>
                 </div>
             </header>
@@ -41,7 +53,7 @@ function Dashboard() {
                 <h2>Menu</h2>
                 <ul>
                     <li>
-                        <Link to="/dashboard">
+                        <Link onClick={handleBackToOverview}>
                             <FaHome size={24} />
                             <span>Visão Geral</span>
                         </Link>
@@ -79,55 +91,8 @@ function Dashboard() {
                 </ul>
             </aside>
             <main className="Dashboard-main">
-                <section className="Dashboard-overview">
-                    <div className="Dashboard-card members">
-                        <h3>Membros</h3>
-                        <p>7</p>
-                    </div>
-                    <div className="Dashboard-card congregados">
-                        <h3>Congregados</h3>
-                        <p>6</p>
-                    </div>
-                    <div className="Dashboard-card nao-batizados">
-                        <h3>Não Batizados</h3>
-                        <p>6</p>
-                    </div>
-                    <div className="Dashboard-card batizados">
-                        <h3>Batizados</h3>
-                        <p>7</p>
-                    </div>
-                </section>
-                <section className="Dashboard-details">
-                    <div className="Dashboard-recent">
-                        <h3>Cadastros Recentes</h3>
-                        <button>+ Cadastrar</button>
-                        <ul>
-                            <li>Roberto Amaral</li>
-                            <li>Ana Maria</li>
-                            <li>Renato Oliveira</li>
-                            <li>Adriano Amaral</li>
-                            <li>Adriana Silva</li>
-                        </ul>
-                    </div>
-                    <div className="Dashboard-birthdays">
-                        <h3>Aniversariantes do Mês</h3>
-                        <ul>
-                            <li>25 - João Antônio</li>
-                            <li>24 - Ricardo Gomes</li>
-                            <li>22 - Fernanda Gomes</li>
-                            <li>20 - Ana Maria</li>
-                            <li>10 - Roberto Amaral</li>
-                        </ul>
-                    </div>
-                    <div className="Dashboard-events">
-                        <h3>Próximos Eventos</h3>
-                        <button>+ Cadastrar</button>
-                        <ul>
-                            <li>22 Nov - Reunião com Diáconos</li>
-                            <li>23 Nov - Congresso de Mulheres</li>
-                        </ul>
-                    </div>
-                </section>
+                {view === 'overview' && <Overview />}
+                {view === 'changePassword' && <ChangePasswordForm handleBackToOverview={handleBackToOverview} />}
             </main>
         </div>
     );

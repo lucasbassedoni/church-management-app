@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -11,12 +11,16 @@ const Login = () => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
 
+    useEffect(() => {
+        document.title = 'Church Management - Login';
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/login', { email, password });
-            const { token, name } = response.data;
-            login(token, name);
+            const response = await axios.post('http://localhost:8080/api/auth/login', { email, password }, { withCredentials: true });
+            const { token, name, email: userEmail } = response.data;
+            login(token, name, userEmail);
             navigate('/dashboard');
         } catch (err) {
             setError('Credenciais inválidas. Tente novamente.');

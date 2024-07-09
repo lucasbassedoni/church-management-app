@@ -72,13 +72,14 @@ body {
 }
 
 .Index-header, .Dashboard-header {
-    background-color: #002147; /* Azul Marinho */
+    background-color: #002147;
     padding: 20px;
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
 }
 
 .Index-header h1, .Dashboard-header h1 {
@@ -248,12 +249,12 @@ input[type="date"] {
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
-    margin-left: 200px; /* Ajustar para a largura do menu aberto */
+    margin-left: 20px;
     transition: margin-left 0.3s ease;
 }
 
 .sidebar-closed .Dashboard-main {
-    margin-left: 50px; /* Ajustar para a largura do menu fechado */
+    margin-left: 50px;
 }
 
 .Dashboard-overview {
@@ -424,3 +425,4 @@ input[type="date"] {
 .voltar{
     margin-left: 30px;
 }
+

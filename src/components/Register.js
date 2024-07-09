@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import InputMask from 'react-input-mask';
@@ -16,6 +16,10 @@ function Register() {
     const [phone, setPhone] = useState('');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+
+    useEffect(() => {
+        document.title = 'Church Management - Register';
+    }, []);
 
     const navigate = useNavigate();
 
