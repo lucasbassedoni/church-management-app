@@ -11,9 +11,10 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [birthDate, setBirthDate] = useState('');
-    const [baptismDate, setBaptismDate] = useState('');
+    const [isBaptized, setIsBaptized] = useState('0');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
+    const [status, setStatus] = useState('Membro');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -53,9 +54,10 @@ function Register() {
             type, 
             password, 
             birthDate, 
-            baptismDate, 
+            isBaptized, 
             address, 
-            phone 
+            phone,
+            status
         };
 
         try {
@@ -67,9 +69,10 @@ function Register() {
             setPassword('');
             setConfirmPassword('');
             setBirthDate('');
-            setBaptismDate('');
+            setIsBaptized('0');
             setAddress('');
             setPhone('');
+            setStatus('Membro');
             setError('');
             setSuccessMessage('Cadastro realizado com sucesso!');
         } catch (error) {
@@ -138,12 +141,11 @@ function Register() {
                 />
             </div>
             <div>
-                <label>Data Batismo: <small><b>(opcional)</b></small></label>
-                <input
-                    type="date"
-                    value={baptismDate}
-                    onChange={(e) => setBaptismDate(e.target.value)}
-                />
+                <label>Você é Batizado (águas)?</label>
+                <select value={isBaptized} onChange={(e) => setIsBaptized(e.target.value)}>
+                    <option value="1">Sim</option>
+                    <option value="0">Não</option>
+                </select>
             </div>
             <div>
                 <label>Endereço:</label>
@@ -165,6 +167,13 @@ function Register() {
                 >
                     {() => <input type="text" />}
                 </InputMask>
+            </div>
+            <div>
+                <label>Membro ou Visitante?</label>
+                <select value={status} onChange={(e) => setStatus(e.target.value)}>
+                    <option value="Membro">Membro</option>
+                    <option value="Visitante">Visitante</option>
+                </select>
             </div>
             {error && <p className="error">{error}</p>}
             {successMessage && <p className="success">{successMessage}</p>}

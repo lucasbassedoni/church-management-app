@@ -5,6 +5,7 @@ import '../styles.css';
 import { useAuth } from '../context/AuthContext';
 import Overview from './Overview';
 import ChangePasswordForm from './ChangePasswordForm';
+import MembersManagement from './MembersManagement';
 
 function Dashboard() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -33,6 +34,10 @@ function Dashboard() {
         setView('overview');
     };
 
+    const handleMembersManagement = () => {
+        setView('membersManagement');
+    };
+
     return (
         <div className={`Dashboard ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
             <header className="Dashboard-header">
@@ -59,7 +64,7 @@ function Dashboard() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/members">
+                        <Link onClick={handleMembersManagement}>
                             <FaUsers size={24} />
                             <span>Gerenciamento de Membros</span>
                         </Link>
@@ -93,6 +98,7 @@ function Dashboard() {
             <main className="Dashboard-main">
                 {view === 'overview' && <Overview />}
                 {view === 'changePassword' && <ChangePasswordForm handleBackToOverview={handleBackToOverview} />}
+                {view === 'membersManagement' && <MembersManagement />}
             </main>
         </div>
     );

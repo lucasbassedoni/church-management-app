@@ -1,3 +1,4 @@
+/* Estilos globais */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -9,6 +10,7 @@ body {
     height: 100vh;
 }
 
+/* Estilos para o container de login */
 .login-container {
     display: flex;
     justify-content: center;
@@ -62,7 +64,7 @@ body {
     background-color: #e6b800;
 }
 
-
+/* Estilos para o container geral */
 .Index, .Dashboard {
     text-align: center;
     width: 100%;
@@ -79,7 +81,6 @@ body {
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    
 }
 
 .Index-header h1, .Dashboard-header h1 {
@@ -249,12 +250,12 @@ input[type="date"] {
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
-    margin-left: 20px;
+    margin-left: 220px;
     transition: margin-left 0.3s ease;
 }
 
 .sidebar-closed .Dashboard-main {
-    margin-left: 50px;
+    margin-left: 70px;
 }
 
 .Dashboard-overview {
@@ -333,6 +334,11 @@ input[type="date"] {
     list-style: none;
     padding: 0;
     width: 100%;
+}
+
+.Dashboard-recent li, .Dashboard-birthdays li, .Dashboard-events li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 .sidebar-open .Dashboard-sidebar {
@@ -422,7 +428,137 @@ input[type="date"] {
     font-weight: bold;
 }
 
-.voltar{
+.voltar {
     margin-left: 30px;
 }
 
+/* Estilo para a busca de membros */
+.members-management {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.members-management h2 {
+    margin-bottom: 20px;
+    color: #003366;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-bar label {
+    font-size: 18px;
+    color: #003366;
+}
+
+.search-bar input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    flex-grow: 1;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background-color: #003366;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-bar button:hover {
+    background-color: #002244;
+}
+
+/* Estilo para a tabela de membros */
+.members-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.members-list th, .members-list td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.members-list th {
+    background-color: #003366;
+    color: #fff;
+}
+
+.members-list tr:hover {
+    background-color: #f1f1f1;
+}
+
+.members-list td .action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.members-list button {
+    padding: 5px 10px;
+    background-color: #003366;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.members-list button:hover {
+    background-color: #002244;
+}
+
+.members-list button.delete {
+    background-color: #dc3545;
+}
+
+.members-list button.delete:hover {
+    background-color: #c82333;
+}
+
+/* Estilo para a mensagem de confirmação de exclusão */
+.confirmation-dialog p {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Estilo para a mensagem de sucesso */
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Estilo para a tabela de aniversariantes */
+.birthday-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.birthday-table th, .birthday-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.birthday-table th {
+    background-color: #003366;
+    color: #fff;
+}
+
+.birthday-table td {
+    color: #003366;
+    font-weight: bold;
+}
