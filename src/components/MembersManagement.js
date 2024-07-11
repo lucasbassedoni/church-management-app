@@ -4,7 +4,7 @@ import '../styles.css';
 import { FaPencilAlt, FaTrash } from 'react-icons/fa';
 import InputMask from 'react-input-mask';
 
-function MembersManagement() {
+function MembersManagement({ scrollToTop }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [members, setMembers] = useState([]);
     const [filteredMembers, setFilteredMembers] = useState([]);
@@ -18,9 +18,9 @@ function MembersManagement() {
 
         const fetchMembers = async () => {
             try {
-                const response = await api.get('/users'); // Endpoint para buscar os membros
+                const response = await api.get('/users'); 
                 setMembers(response.data);
-                setFilteredMembers(response.data.slice(0, 10)); // Mostrar os 10 últimos membros
+                setFilteredMembers(response.data.slice(0, 10));
             } catch (error) {
                 console.error('Error fetching members:', error);
             }
@@ -32,12 +32,12 @@ function MembersManagement() {
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
         const filtered = members.filter(member => member.name.toLowerCase().includes(e.target.value.toLowerCase()));
-        setFilteredMembers(filtered.slice(0, 10)); // Mostrar os 10 membros filtrados
+        setFilteredMembers(filtered.slice(0, 10)); 
     };
 
     const handleDelete = async (id) => {
         try {
-            await api.delete(`/users/${id}`); // Endpoint para excluir o membro
+            await api.delete(`/users/${id}`);
             setMembers(members.filter(member => member.id !== id));
             setFilteredMembers(filteredMembers.filter(member => member.id !== id));
             setSuccessMessage('Membro excluído com sucesso!');
@@ -48,16 +48,18 @@ function MembersManagement() {
             console.error('Error deleting member:', error);
         }
         setShowConfirmation(false);
+        scrollToTop();
     };
 
     const handleEdit = (member) => {
         setEditingMember(member);
+        scrollToTop();
     };
 
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            await api.put(`/users/${editingMember.id}`, editingMember); // Endpoint para atualizar o membro
+            await api.put(`/users/${editingMember.id}`, editingMember);
             const updatedMembers = members.map(member => (member.id === editingMember.id ? editingMember : member));
             setMembers(updatedMembers);
             setFilteredMembers(updatedMembers.slice(0, 10));
@@ -115,13 +117,13 @@ function MembersManagement() {
                         <div>
                             <label>Telefone:</label>
                             <InputMask
-                    mask="(99) 99999-9999"
-                    value={editingMember.phone}
-                    onChange={handleChange}
-                    required
-                >
-                    {() => <input type="text" name="phone" required/>}
-                </InputMask>
+                                mask="(99) 99999-9999"
+                                value={editingMember.phone}
+                                onChange={handleChange}
+                                required
+                            >
+                                {() => <input type="text" name="phone" required />}
+                            </InputMask>
                         </div>
                         <div>
                             <label>Status:</label>
@@ -143,7 +145,7 @@ function MembersManagement() {
             {showConfirmation && (
                 <div className="confirmation-dialog">
                     <p>Tem certeza que deseja excluir este membro?</p>
-                    <button onClick={() => handleDelete(memberToDelete) }>Sim</button>
+                    <button onClick={() => handleDelete(memberToDelete)}>Sim</button>
                     <button style={{ marginLeft: '40px' }} onClick={() => setShowConfirmation(false)}>Não</button>
                 </div>
             )}
@@ -169,7 +171,7 @@ function MembersManagement() {
                                 <td>
                                     <div className="action-buttons">
                                         <button onClick={() => handleEdit(member)}><FaPencilAlt /></button>
-                                        <button className="delete" onClick={() => { setShowConfirmation(true); setMemberToDelete(member.id); }}><FaTrash /></button>
+                                        <button className="delete" onClick={() => { setShowConfirmation(true); setMemberToDelete(member.id); scrollToTop(); }}><FaTrash /></button>
                                     </div>
                                 </td>
                             </tr>

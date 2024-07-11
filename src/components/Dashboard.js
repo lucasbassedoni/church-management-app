@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaHome, FaUsers, FaDollarSign, FaCalendarAlt, FaLayerGroup, FaComment, FaBars, FaUserCircle } from 'react-icons/fa';
 import '../styles.css';
@@ -6,12 +6,15 @@ import { useAuth } from '../context/AuthContext';
 import Overview from './Overview';
 import ChangePasswordForm from './ChangePasswordForm';
 import MembersManagement from './MembersManagement';
+import FinanceManagement from './FinanceManagement';
+import EventsManagement from './EventsManagement';
 
 function Dashboard() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [view, setView] = useState('overview');
     const { logout, userName } = useAuth();
     const navigate = useNavigate();
+    const mainRef = useRef(null);
 
     useEffect(() => {
         document.title = 'Church Management - Dashboard';
@@ -36,6 +39,23 @@ function Dashboard() {
 
     const handleMembersManagement = () => {
         setView('membersManagement');
+    };
+
+    const handleFinanceManagement = () => {
+        setView('financeManagement');
+    };
+
+    const handleEventsManagement = () => {
+        setView('eventsManagement');
+    };
+
+    const scrollToTop = () => {
+        if (mainRef.current) {
+            mainRef.current.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     };
 
     return (
@@ -70,35 +90,37 @@ function Dashboard() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/finance">
+                        <Link onClick={handleFinanceManagement}>
                             <FaDollarSign size={24} />
                             <span>Gestão Financeira</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/events">
+                        <Link onClick={handleEventsManagement}>
                             <FaCalendarAlt size={24} />
                             <span>Gestão de Eventos</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/groups">
+                        <Link to="/dashboard">
                             <FaLayerGroup size={24} />
                             <span>Gestão de Grupos e Ministérios</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/communication">
+                        <Link to="/dashboard">
                             <FaComment size={24} />
                             <span>Comunicação</span>
                         </Link>
                     </li>
                 </ul>
             </aside>
-            <main className="Dashboard-main">
+            <main className="Dashboard-main" ref={mainRef}>
                 {view === 'overview' && <Overview />}
                 {view === 'changePassword' && <ChangePasswordForm handleBackToOverview={handleBackToOverview} />}
-                {view === 'membersManagement' && <MembersManagement />}
+                {view === 'membersManagement' && <MembersManagement scrollToTop={scrollToTop} />}
+                {view === 'financeManagement' && <FinanceManagement />}
+                {view === 'eventsManagement' && <EventsManagement scrollToTop={scrollToTop} />}
             </main>
         </div>
     );

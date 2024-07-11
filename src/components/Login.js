@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
+import api from '../services/api';
 import '../styles.css';
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/login', { email, password }, { withCredentials: true });
+            const response = await api.post('/api/auth/login', { email, password }, { withCredentials: true });
             const { token, name, email: userEmail } = response.data;
             login(token, name, userEmail);
             navigate('/dashboard');

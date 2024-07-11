@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 function ChangePasswordForm({ handleBackToOverview }) {
     const [currentPassword, setCurrentPassword] = useState('');
@@ -19,7 +19,7 @@ function ChangePasswordForm({ handleBackToOverview }) {
         }
 
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/change-password', {
+            const response = await api.post('/api/auth/change-password', {
                 currentPassword,
                 newPassword,
             });
